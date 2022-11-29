@@ -14,7 +14,7 @@ public class Airplane {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "flight_No", nullable = false)
+    @Column(name = "flight_No",unique = true, nullable = false)
     private String flightNo;
 
     @Column(name = "city_departune")

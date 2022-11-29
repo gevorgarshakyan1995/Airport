@@ -2,6 +2,7 @@ package com.connectto.services.implementations;
 
 import com.connectto.DTO.Request.AirplaneSaveDtoReq;
 import com.connectto.DTO.Response.AirplaneInfoGetDto;
+import com.connectto.Exception.NotFoundException;
 import com.connectto.enums.Remarks;
 import com.connectto.model.Airplane;
 import com.connectto.repositores.AirplaneRepository;
@@ -9,7 +10,6 @@ import com.connectto.services.interfaces.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -42,9 +42,32 @@ public class AirplaneServiceImpl implements AirplaneService {
     }
 
     @Override
-    public List<AirplaneInfoGetDto> getAll(){
+    public List<AirplaneInfoGetDto> getAll() {
         return airplaneRepository.getAll();
     }
 
+    @Override
+    public Airplane flightNo(String flightNo) throws NotFoundException {
+        Airplane airplane = airplaneRepository.getByFlightNo(flightNo);
+        if (airplane == null) {
+            throw new NotFoundException("Airplane not found");
+        }
+        return airplane;
+    }
 
+    @Override
+    public void update(String flightNo, String remarks) throws NotFoundException {
+        Airplane airplane = flightNo(flightNo);
+        airplane.setRemarks(Remarks.valueOf(remarks));
+        airplaneRepository.save(airplane);
+    }
+
+    @Override
+    public AirplaneInfoGetDto getByFlightNoSearch(String flightNo) throws NotFoundException {
+        AirplaneInfoGetDto airplaneInfoGetDto = airplaneRepository.getByFlightNoSearch(flightNo);
+        if (airplaneInfoGetDto == null) {
+            throw new NotFoundException("not found");
+        }
+        return airplaneInfoGetDto;
+    }
 }

@@ -28,4 +28,11 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
             "FROM Airplane a ")
     List<AirplaneInfoGetDto> getAll();
 
+    Airplane getByFlightNo(String flightNo);
+
+    @Query("SELECT new com.connectto.DTO.Response.AirplaneInfoGetDto(a.flightNo, " +
+            "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks) " +
+            "FROM Airplane a WHERE a.flightNo = ?1 ")
+    AirplaneInfoGetDto getByFlightNoSearch (String flightNo);
+
 }
