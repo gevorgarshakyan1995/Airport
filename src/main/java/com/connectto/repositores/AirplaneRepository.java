@@ -2,13 +2,11 @@ package com.connectto.repositores;
 
 
 import com.connectto.DTO.Response.AirplaneInfoGetDto;
-import com.connectto.enums.Remarks;
 import com.connectto.model.Airplane;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -24,5 +22,10 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
             "AND (?5 IS NULL OR a.timeDepature = ?5)")
     List<AirplaneInfoGetDto> getAllAndSearch(String cityDepartune, String cityArrival,
                                              String remarks, String timeArrivel, String timeDepature);
+
+    @Query("SELECT new com.connectto.DTO.Response.AirplaneInfoGetDto(a.flightNo, " +
+            "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks) " +
+            "FROM Airplane a ")
+    List<AirplaneInfoGetDto> getAll();
 
 }

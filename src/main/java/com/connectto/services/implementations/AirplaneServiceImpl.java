@@ -41,5 +41,10 @@ public class AirplaneServiceImpl implements AirplaneService {
                 , timeArrivel, timeDepature);
     }
 
+    @Override
+    public List<AirplaneInfoGetDto> getAll(){
+        return airplaneRepository.getAll();
+    }
+
 
 }

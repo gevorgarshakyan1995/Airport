@@ -15,4 +15,6 @@ public interface AirplaneService {
     List<AirplaneInfoGetDto> getAllAndSearch(String cityDepartune, String cityArrival,
                                              String remarks, String timeArrivel,
                                              String timeDepature);
+
+    List<AirplaneInfoGetDto> getAll();
 }
