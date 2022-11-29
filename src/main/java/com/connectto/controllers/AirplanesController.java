@@ -2,10 +2,12 @@ package com.connectto.controllers;
 
 import com.connectto.DTO.Request.AirplaneSaveDtoReq;
 import com.connectto.DTO.Response.AirplaneInfoGetDto;
+import com.connectto.enums.Remarks;
 import com.connectto.services.interfaces.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -22,9 +24,12 @@ public class AirplanesController {
     }
 
     @GetMapping("/search")
-    List<AirplaneInfoGetDto> getAllAndSearch(@RequestParam("cityDepartune") String cityDepartune,
-                                             @RequestParam("cityArrival") String cityArrival) {
-        return airplaneService.getAllAndSearch(cityDepartune, cityArrival);
+    List<AirplaneInfoGetDto> getAllAndSearch(@RequestParam(value = "cityDepartune", required = false) String cityDepartune,
+                                             @RequestParam(value = "cityArrival", required = false) String cityArrival,
+                                             @RequestParam(value = "remarks", required = false) String remarks,
+                                             @RequestParam(value = "timeArrivel", required = false) String timeArrivel,
+                                             @RequestParam(value = "timeDepature", required = false) String timeDepature) {
+        return airplaneService.getAllAndSearch(cityDepartune, cityArrival, remarks, timeArrivel, timeDepature);
     }
 
 

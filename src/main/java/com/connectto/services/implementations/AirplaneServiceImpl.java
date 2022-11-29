@@ -9,6 +9,7 @@ import com.connectto.services.interfaces.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -32,8 +33,12 @@ public class AirplaneServiceImpl implements AirplaneService {
     }
 
     @Override
-    public List<AirplaneInfoGetDto> getAllAndSearch(String cityDepartune, String cityArrival) {
-        return airplaneRepository.getAllAndSearch(cityDepartune, cityArrival);
+    public List<AirplaneInfoGetDto> getAllAndSearch(String cityDepartune, String cityArrival,
+                                                    String remarks, String timeArrivel,
+                                                    String timeDepature) {
+
+        return airplaneRepository.getAllAndSearch(cityDepartune, cityArrival, remarks
+                , timeArrivel, timeDepature);
     }
 
 
