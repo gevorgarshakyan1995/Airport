@@ -1,5 +1,6 @@
 package com.connectto.model;
 
+import com.connectto.enums.StatusTicket;
 import lombok.Data;
 
 import javax.persistence.*;

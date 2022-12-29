@@ -1,4 +1,4 @@
-package com.connectto.model;
+package com.connectto.enums;
 
 public enum StatusTicket {
     UNBAGGAGE,
