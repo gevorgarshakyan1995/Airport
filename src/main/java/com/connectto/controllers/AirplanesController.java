@@ -26,7 +26,7 @@ public class AirplanesController {
         airplaneService.save(airplaneSaveDtoReq);
         return ResponseEntity.ok().build();
     }
-
+    @RolesAllowed(value = "ROLE_ADMIN")
     @GetMapping("/search")
     ResponseEntity<List<AirplaneInfoGetDto>> getAllAndSearch(@RequestParam(value = "cityDepartune", required = false) String cityDepartune,
                                                              @RequestParam(value = "cityArrival", required = false) String cityArrival,
