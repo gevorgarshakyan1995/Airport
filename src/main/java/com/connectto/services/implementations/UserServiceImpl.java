@@ -1,6 +1,7 @@
 package com.connectto.services.implementations;
 
 import com.connectto.DTO.Response.UserDto;
+import com.connectto.Exception.NotFoundException;
 import com.connectto.model.User;
 import com.connectto.repositores.UserRepository;
 import com.connectto.services.interfaces.UserService;
@@ -20,5 +21,15 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userDto.getPassword());
         user.setAuthoriti(userDto.getAuthoriti());
         userRepository.save(user);
+    }
+
+    @Override
+    public User getBYEmail(String email)throws NotFoundException {
+        User user = userRepository.getByEmail(email);
+
+        if (user == null) {
+            throw new NotFoundException("User not found");
+        }
+        return user;
     }
 }
