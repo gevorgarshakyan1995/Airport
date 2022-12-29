@@ -6,6 +6,7 @@ import com.connectto.enums.Remarks;
 import lombok.Data;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -32,4 +33,7 @@ public class Airplane {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "Remarks")
     private Remarks remarks;
+
+    @OneToMany(mappedBy = "airplane")
+    private List<Flight> flights;
 }

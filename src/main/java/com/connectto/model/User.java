@@ -18,6 +18,10 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private List<Book> book;
+
+
     @ManyToMany
     @JoinTable(name = "user_authoriti",
             joinColumns = @JoinColumn(name = "user_id"),
