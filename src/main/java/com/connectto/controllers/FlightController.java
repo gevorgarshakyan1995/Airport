@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
+
 @RestController
 @RequestMapping(value = "/flight")
 public class FlightController {
     @Autowired
     private FlightService flightService;
 
+    @RolesAllowed(value = "ROLE_ADMIN")
     @PostMapping
     ResponseEntity<Void> save(@RequestBody Flight flight) {
         flightService.save(flight);
