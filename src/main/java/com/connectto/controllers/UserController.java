@@ -1,6 +1,6 @@
 package com.connectto.controllers;
 
-import com.connectto.DTO.Response.UserDto;
+import com.connectto.DTO.Request.UserDto;
 import com.connectto.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

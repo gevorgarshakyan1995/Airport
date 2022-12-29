@@ -3,6 +3,7 @@ package com.connectto.model;
 import javax.persistence.*;
 
 import com.connectto.enums.Remarks;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.time.LocalTime;
@@ -34,6 +35,7 @@ public class Airplane {
     @Column(name = "Remarks")
     private Remarks remarks;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "airplane")
     private List<Flight> flights;
 }

@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface AirplaneService {
 
+
     void save(AirplaneSaveDtoReq airplaneSaveDtoReq);
 
     List<AirplaneInfoGetDto> getAllAndSearch(String cityDepartune, String cityArrival,

@@ -1,6 +1,6 @@
 package com.connectto.services.implementations;
 
-import com.connectto.DTO.Response.UserDto;
+import com.connectto.DTO.Request.UserDto;
 import com.connectto.Exception.NotFoundException;
 import com.connectto.model.User;
 import com.connectto.repositores.UserRepository;

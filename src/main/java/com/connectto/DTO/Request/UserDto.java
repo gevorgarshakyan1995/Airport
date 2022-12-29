@@ -1,4 +1,4 @@
-package com.connectto.DTO.Response;
+package com.connectto.DTO.Request;
 
 import com.connectto.model.Authority;
 import lombok.Data;

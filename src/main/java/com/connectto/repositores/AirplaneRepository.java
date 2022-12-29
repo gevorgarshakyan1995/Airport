@@ -35,4 +35,14 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
             "FROM Airplane a WHERE a.flightNo = ?1 ")
     AirplaneInfoGetDto getByFlightNoSearch (String flightNo);
 
+
+    @Query(nativeQuery = true, value = "SELECT * FROM airplane WHERE id IN" +
+            "(SELECT airplane_id FROM flight WHERE id IN " +
+            "(SELECT flight_id FROM book_flight WHERE book_id IN " +
+            "(SELECT id FROM BOOK  WHERE user_id IN " +
+            "(SELECT id FROM USER WHERE email = ?1 )))) AND" +
+            "(remarks = 'DELAYYED' OR remarks = 'CANCELLED')")
+    List<Airplane> go(String email) ;
+
+
 }

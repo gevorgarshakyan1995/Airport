@@ -1,6 +1,5 @@
 package com.connectto.controllers;
 
-import com.connectto.DTO.Response.UserDto;
 import com.connectto.model.Flight;
 import com.connectto.services.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
