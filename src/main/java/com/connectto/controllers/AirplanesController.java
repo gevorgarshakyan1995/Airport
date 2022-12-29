@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class AirplanesController {
     @Autowired
     private AirplaneService airplaneService;
 
-
+    @RolesAllowed(value = "ROLE_ADMIN")
     @PostMapping
     ResponseEntity<Void> save(@RequestBody AirplaneSaveDtoReq airplaneSaveDtoReq) {
         airplaneService.save(airplaneSaveDtoReq);
@@ -34,12 +35,13 @@ public class AirplanesController {
                                                              @RequestParam(value = "timeDepature", required = false) String timeDepature) {
         return ResponseEntity.ok(airplaneService.getAllAndSearch(cityDepartune, cityArrival, remarks, timeArrivel, timeDepature));
     }
-
+    @RolesAllowed(value = "ROLE_ADMIN")
     @GetMapping
     ResponseEntity<List<AirplaneInfoGetDto>> getAll() {
         return ResponseEntity.ok(airplaneService.getAll());
     }
 
+    @RolesAllowed(value = "ROLE_ADMIN")
     @PutMapping
     ResponseEntity<Void> update(@RequestParam("flightNo") String flightNo,
                                 @RequestParam("remarks") String remarks) throws NotFoundException {

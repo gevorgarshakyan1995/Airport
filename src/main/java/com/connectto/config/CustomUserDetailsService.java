@@ -1,5 +1,6 @@
 package com.connectto.config;
 
+
 import com.connectto.Exception.NotFoundException;
 import com.connectto.model.Authority;
 import com.connectto.model.User;
@@ -11,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 
