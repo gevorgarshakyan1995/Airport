@@ -21,15 +21,7 @@ public class LoginSeviceImpl implements LoginService {
 
     @Override
     public List<AirplaneInfoGetDto> login(Principal principal) {
-        List<AirplaneInfoGetDto> list = new ArrayList<>();
-        List<Airplane> list1 = airplaneRepository.login(principal.getName());
-        for (Airplane airplane : list1) {
-            AirplaneInfoGetDto airplaneInfoGetDto = new AirplaneInfoGetDto(airplane.getFlightNo(),
-                    airplane.getCityDepartune(), airplane.getCityArrival(), airplane.getTimeDepature(),
-                    airplane.getTimeArrivel(), airplane.getRemarks());
-            list.add(airplaneInfoGetDto);
-        }
-        return list;
+        return airplaneRepository.login(principal.getName());
     }
 
     @Override

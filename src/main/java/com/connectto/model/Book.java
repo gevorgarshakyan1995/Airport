@@ -16,8 +16,8 @@ public class Book {
     @JoinColumn
     private User user;
 
-    @OneToMany
-    private List<Flight> flight;
+    @ManyToOne
+    private Flight flight;
 
 
 }
