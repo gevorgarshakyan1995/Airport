@@ -14,15 +14,15 @@
 
 <div class="container">
 
-    <h3>List Airplaness</h3>
+    <h3>List Ticket</h3>
 
     <table class="table table-bordered table-striped" >
         <br>
         <form th:action="@{/list}"  method="GET">
             <input type="text" id="cityDepartune" name="cityDepartune" placeholder="City Departune" />
             <input type="text" id="cityArrival" name="cityArrival" placeholder="City Arrival" />
-            <input type="text" id="timeFrom" name="timeFrom" placeholder="Time From" />
-            <input type="text" id="timeTo" name="timeTo" placeholder="Time To" />
+            <input type="text" id="timeFrom" name="timeFrom" placeholder="Time From Departune" />
+            <input type="text" id="timeTo" name="timeTo" placeholder="Time To Departune" />
             <button type="submit" class="btn btn-primary col-2">Search</button>
 
         </form>

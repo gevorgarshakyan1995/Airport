@@ -46,7 +46,7 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
     List<Airplane> login(String email);
 
     @Query( "SELECT new com.connectto.DTO.Response.TicketDto(a.flightNo, " +
-            "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks, p.count ,p.statusTicket ) " +
+            "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks, p.price ,p.statusTicket ) " +
             "FROM Airplane a " +
             "LEFT JOIN Flight p on (a.id=p.airplane.id)"+
             "WHERE a.id IN " +
