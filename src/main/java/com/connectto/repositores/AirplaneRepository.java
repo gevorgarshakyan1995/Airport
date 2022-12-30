@@ -33,7 +33,7 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
     @Query("SELECT new com.connectto.DTO.Response.AirplaneInfoGetDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks) " +
             "FROM Airplane a WHERE a.flightNo = ?1 ")
-    AirplaneInfoGetDto getByFlightNoSearch (String flightNo);
+    AirplaneInfoGetDto getByFlightNoSearch(String flightNo);
 
 
     @Query(nativeQuery = true, value = "SELECT * FROM airplane WHERE id IN" +
@@ -42,7 +42,14 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
             "(SELECT id FROM BOOK  WHERE user_id IN " +
             "(SELECT id FROM USER WHERE email = ?1 )))) AND" +
             "(remarks = 'DELAYYED' OR remarks = 'CANCELLED')")
-    List<Airplane> go(String email) ;
+    List<Airplane> login(String email);
 
+    @Query(nativeQuery = true, value = "SELECT * FROM airplane WHERE id IN " +
+            "(SELECT airplane_id FROM flight)" +
+            "AND (?1 IS NULL OR city_departune = ?1)" +
+            "AND (?2 IS NULL OR city_arrival = ?2)" +
+            "AND (?3 IS NULL OR time_depature >= ?3)" +
+            "AND (?4 IS NULL OR time_depature <= ?4)")
+    List<Airplane> getAirplaneByFlightTicket(String cityDepartune, String cityArrival, String timeFrom, String timeTo);
 
 }
