@@ -1,6 +1,7 @@
 package com.connectto.services.implementations;
 
 import com.connectto.DTO.Response.AirplaneInfoGetDto;
+import com.connectto.DTO.Response.TicketDto;
 import com.connectto.model.Airplane;
 import com.connectto.repositores.AirplaneRepository;
 import com.connectto.services.interfaces.LoginService;
@@ -34,7 +35,7 @@ public class LoginSeviceImpl implements LoginService {
     @Override
     public ModelAndView getAirplaneByFlightTicket(String cityDepartune,String cityArrival,String timeFrom,String timeTo) {
         ModelAndView mav = new ModelAndView("list-airplanes");
-        List<Airplane> list = airplaneRepository.getAirplaneByFlightTicket(cityDepartune,cityArrival,timeFrom,timeTo);
+        List<TicketDto> list = airplaneRepository.getAirplaneByFlightTicket(cityDepartune,cityArrival,timeFrom,timeTo);
         mav.addObject("airplanes", list);
         return mav;
     }
