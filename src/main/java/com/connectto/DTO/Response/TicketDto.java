@@ -24,8 +24,11 @@ public class TicketDto {
 
     private StatusTicket statusTicket;
 
+    private Integer count;
+
     public TicketDto(String flightNo, String cityDepartune, String cityArrival, LocalTime timeDepature,
-                     LocalTime timeArrivel, Remarks remarks, Integer price, StatusTicket statusTicket) {
+                     LocalTime timeArrivel, Remarks remarks, Integer price, StatusTicket statusTicket,
+                     Integer count) {
         this.flightNo = flightNo;
         this.cityDepartune = cityDepartune;
         this.cityArrival = cityArrival;
@@ -34,6 +37,7 @@ public class TicketDto {
         this.remarks = remarks;
         this.price = price;
         this.statusTicket = statusTicket;
+        this.count = count;
     }
 }
 

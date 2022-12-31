@@ -28,13 +28,14 @@
         </form>
         <thead>
         <tr>
-            <th>flightNo</th>
-            <th>cityDepartune</th>
-            <th>cityArrival</th>
-            <th>timeDepature</th>
-            <th>timeArrivel</th>
-            <th>price</th>
-            <th>statusTicket</th>
+            <th>Flight No</th>
+            <th>City Departune</th>
+            <th>City Arrival</th>
+            <th>Time Depature</th>
+            <th>Time Arrivel</th>
+            <th>Price</th>
+            <th>Dtatus Ticket</th>
+            <th>Number Ticket</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -47,8 +48,9 @@
             <td th:text="${airplane.timeArrivel}"/>
             <td th:text="${airplane.price}"/>
             <td th:text="${airplane.statusTicket}"/>
+            <td th:text="${airplane.count}"/>
             <td>
-
+                <a th:href="@{/book(flightNo=${airplane.flightNo},statusTicket=${airplane.statusTicket})}" class="btn btn-success">Book</a>
             </td>
         </tr>
         <a th:href="@{/list}" class="btn btn-primary">List All</a>

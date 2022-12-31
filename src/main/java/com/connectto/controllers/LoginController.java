@@ -1,16 +1,18 @@
 package com.connectto.controllers;
 
 import com.connectto.DTO.Response.AirplaneInfoGetDto;
+import com.connectto.enums.StatusTicket;
 import com.connectto.services.interfaces.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping(value = "/")
 public class LoginController {
 
@@ -32,4 +34,10 @@ public class LoginController {
         return loginService.getAirplaneByFlightTicket(cityDepartune, cityArrival, timeFrom, timeTo);
     }
 
+    @GetMapping("/book")
+    public String bookTichet(@RequestParam("flightNo") String flightNo,
+                                 @RequestParam("statusTicket") String statusTicket, Principal principal) {
+        loginService.bookTichet(flightNo,statusTicket,principal);
+        return "redirect:/list";
+    }
 }
