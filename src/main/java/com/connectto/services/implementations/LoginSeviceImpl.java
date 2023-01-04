@@ -54,7 +54,8 @@ public class LoginSeviceImpl implements LoginService {
     public void bookTichet(String flightNo, String statusTicket, Principal principal) {
         Airplane airplane = airplaneRepository.getByFlightNo(flightNo);
         User user = userRepository.getByEmail(principal.getName());
-        Flight flight = flightRepository.getByAirplane_IdAndStatusTicket(airplane.getId(), StatusTicket.valueOf(statusTicket));
+        Flight flight = flightRepository.getByAirplane_IdAndStatusTicket(airplane.getId(),
+                StatusTicket.valueOf(statusTicket));
         Book book = new Book();
         book.setFlight(flight);
         book.setUser(user);
