@@ -90,7 +90,7 @@ public class LoginSeviceImpl implements LoginService {
         airplane1.setFlightNo(airplane.getFlightNo());
         airplaneRepository.save(airplane1);
         String subject = "Airplane company";
-        String text = "Changed the flight of the plane " + airplane1.toString();
+        String text = "Changed the flight of the plane   " + airplane1.toString();
         List<User> users = userRepository.getByBookByFlightByAirplane(airplane1.getId());
         for (User user:users) {
             mailSender.tokenSimpleMessage(user.getEmail(),subject,text);
