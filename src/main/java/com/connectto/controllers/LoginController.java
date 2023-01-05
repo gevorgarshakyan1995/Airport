@@ -55,4 +55,12 @@ public class LoginController {
     public ModelAndView addUpdateForm(@RequestParam("flightNo") String flightNo) {
         return loginService.addUpdateForm(flightNo);
     }
+
+    @RolesAllowed(value = "ROLE_ADMIN")
+    @GetMapping("/delete")
+    public String delete(@RequestParam("flightNo") String flightNo,
+                         @RequestParam("statusTicket") String statusTicket) {
+        loginService.delete(flightNo, statusTicket);
+        return "redirect:/list";
+    }
 }

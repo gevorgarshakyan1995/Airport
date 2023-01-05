@@ -4,6 +4,7 @@ import com.connectto.enums.StatusTicket;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,6 +21,9 @@ public class Flight {
     @ManyToOne
     @JoinColumn
     private Airplane airplane;
+
+    @OneToMany(mappedBy = "flight" ,cascade = CascadeType.ALL)
+    private List<Book> book;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Baggage_status")

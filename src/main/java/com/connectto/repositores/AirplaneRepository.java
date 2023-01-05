@@ -45,9 +45,9 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
 
     @Query("SELECT new com.connectto.DTO.AirplaneInfoGetDto(u.flightNo,u.cityDepartune," +
             " u.cityArrival, u.timeDepature, u.timeArrivel, u.remarks)" +
-            "FROM Airplane u WHERE u.id IN" +
+            "FROM Airplane u WHERE u.id IN (SELECT l.airplane.id FROM Flight l WHERE l.id IN" +
             "(SELECT p.flight.id FROM Book p WHERE p.user.id IN " +
-            "(SELECT m.id FROM User m WHERE m.email = ?1 )) AND" +
+            "(SELECT m.id FROM User m WHERE m.email = ?1 ))) AND" +
             "(u.remarks = 'DELAYYED' OR u.remarks = 'CANCELLED')")
     List<AirplaneInfoGetDto> login(String email);
 

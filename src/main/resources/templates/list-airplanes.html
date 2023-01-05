@@ -37,7 +37,7 @@
             <th>Time Arrivel</th>
             <th>Price</th>
             <th>Dtatus Ticket</th>
-            <th>Number Ticket</th>
+            <th>Quantity Ticket</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -54,7 +54,9 @@
             <td>
                 <a th:href="@{/book(flightNo=${airplane.flightNo},statusTicket=${airplane.statusTicket})}"
                    class="btn btn-success">Book</a>
-                <a th:href="@{/add-form(flightNo=${airplane.flightNo})}" class="btn btn-info">Update</a>
+                <a th:href="@{/add-form(flightNo=${airplane.flightNo})}" class="btn btn-info">Edite</a>
+                <a th:href="@{/delete(flightNo=${airplane.flightNo},statusTicket=${airplane.statusTicket})}"
+                   class="btn btn-danger ml-2">Delete</a>
             </td>
         </tr>
 

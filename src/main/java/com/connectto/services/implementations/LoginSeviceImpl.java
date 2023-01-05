@@ -92,8 +92,22 @@ public class LoginSeviceImpl implements LoginService {
         String subject = "Airplane company";
         String text = "Changed the flight of the plane   " + airplane1.toString();
         List<User> users = userRepository.getByBookByFlightByAirplane(airplane1.getId());
-        for (User user:users) {
-            mailSender.tokenSimpleMessage(user.getEmail(),subject,text);
+        for (User user : users) {
+            mailSender.tokenSimpleMessage(user.getEmail(), subject, text);
+        }
+    }
+
+    @Override
+    public void delete(String flightNo, String statusTicket) {
+        Airplane airplane = airplaneRepository.getByFlightNo(flightNo);
+        Flight flight = flightRepository.getByAirplane_IdAndStatusTicket(airplane.getId(),
+                StatusTicket.valueOf(statusTicket));
+        List<User> users = userRepository.getByBookByFlightByAirplane(airplane.getId());
+        flightRepository.deleteById(flight.getId());
+        String subject = "Airplane company";
+        String text = "Delete the flight of the plane   " + airplane.toString();
+        for (User user : users) {
+            mailSender.tokenSimpleMessage(user.getEmail(), subject, text);
         }
     }
 }
