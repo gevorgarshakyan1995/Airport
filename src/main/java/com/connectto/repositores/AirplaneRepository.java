@@ -1,8 +1,9 @@
 package com.connectto.repositores;
 
 
-import com.connectto.DTO.Response.AirplaneInfoGetDto;
-import com.connectto.DTO.Response.TicketDto;
+import com.connectto.DTO.AirplaneSaveDtoReq;
+import com.connectto.DTO.AirplaneInfoGetDto;
+import com.connectto.DTO.TicketDto;
 import com.connectto.model.Airplane;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,7 @@ import java.util.List;
 @Repository
 public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
 
-    @Query("SELECT new com.connectto.DTO.Response.AirplaneInfoGetDto(a.flightNo, " +
+    @Query("SELECT new com.connectto.DTO.AirplaneInfoGetDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks) " +
             "FROM Airplane a  " +
             "WHERE (?1 IS NULL OR a.cityDepartune LIKE %?1%)" +
@@ -24,20 +25,25 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
     List<AirplaneInfoGetDto> getAllAndSearch(String cityDepartune, String cityArrival,
                                              String remarks, String timeArrivel, String timeDepature);
 
-    @Query("SELECT new com.connectto.DTO.Response.AirplaneInfoGetDto(a.flightNo, " +
+    @Query("SELECT new com.connectto.DTO.AirplaneInfoGetDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks) " +
             "FROM Airplane a ")
     List<AirplaneInfoGetDto> getAll();
 
     Airplane getByFlightNo(String flightNo);
 
-    @Query("SELECT new com.connectto.DTO.Response.AirplaneInfoGetDto(a.flightNo, " +
+    @Query("SELECT new com.connectto.DTO.AirplaneInfoGetDto(a.flightNo, " +
+            "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks) " +
+            "FROM Airplane a  where a.flightNo = ?1")
+    AirplaneInfoGetDto getFlightNoUpdate(String flightNo);
+
+    @Query("SELECT new com.connectto.DTO.AirplaneInfoGetDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks) " +
             "FROM Airplane a WHERE a.flightNo = ?1 ")
     AirplaneInfoGetDto getByFlightNoSearch(String flightNo);
 
 
-    @Query("SELECT new com.connectto.DTO.Response.AirplaneInfoGetDto(u.flightNo,u.cityDepartune," +
+    @Query("SELECT new com.connectto.DTO.AirplaneInfoGetDto(u.flightNo,u.cityDepartune," +
             " u.cityArrival, u.timeDepature, u.timeArrivel, u.remarks)" +
             "FROM Airplane u WHERE u.id IN" +
             "(SELECT p.flight.id FROM Book p WHERE p.user.id IN " +
@@ -45,7 +51,7 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
             "(u.remarks = 'DELAYYED' OR u.remarks = 'CANCELLED')")
     List<AirplaneInfoGetDto> login(String email);
 
-    @Query("SELECT new com.connectto.DTO.Response.TicketDto(a.flightNo, " +
+    @Query("SELECT new com.connectto.DTO.TicketDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks," +
             " p.price ,p.statusTicket,p.count ) " +
             "FROM Airplane a " +

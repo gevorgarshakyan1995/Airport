@@ -1,9 +1,8 @@
 package com.connectto.controllers;
 
-import com.connectto.DTO.Request.AirplaneSaveDtoReq;
-import com.connectto.DTO.Response.AirplaneInfoGetDto;
+import com.connectto.DTO.AirplaneSaveDtoReq;
+import com.connectto.DTO.AirplaneInfoGetDto;
 import com.connectto.Exception.NotFoundException;
-import com.connectto.model.Airplane;
 import com.connectto.services.interfaces.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,8 @@
 package com.connectto.services.interfaces;
 
-import com.connectto.DTO.Response.AirplaneInfoGetDto;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.connectto.DTO.AirplaneInfoGetDto;
+import com.connectto.DTO.AirplaneSaveDtoReq;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -14,4 +15,9 @@ public interface LoginService {
     public ModelAndView getAirplaneByFlightTicket(String cityDepartune,String cityArrival,String timeFrom,String timeTo);
 
     void bookTichet(String flightNo,String statusTicket, Principal principal);
+
+    ModelAndView addUpdateForm(String flightNo);
+
+    void Update(AirplaneSaveDtoReq airplane);
+
 }

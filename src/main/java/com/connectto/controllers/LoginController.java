@@ -1,7 +1,7 @@
 package com.connectto.controllers;
 
-import com.connectto.DTO.Response.AirplaneInfoGetDto;
-import com.connectto.enums.StatusTicket;
+import com.connectto.DTO.AirplaneSaveDtoReq;
+import com.connectto.DTO.AirplaneInfoGetDto;
 import com.connectto.services.interfaces.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
 import java.security.Principal;
 import java.util.List;
 
@@ -36,8 +37,22 @@ public class LoginController {
 
     @GetMapping("/book")
     public String bookTichet(@RequestParam("flightNo") String flightNo,
-                                 @RequestParam("statusTicket") String statusTicket, Principal principal) {
-        loginService.bookTichet(flightNo,statusTicket,principal);
+                             @RequestParam("statusTicket") String statusTicket, Principal principal) {
+        loginService.bookTichet(flightNo, statusTicket, principal);
         return "redirect:/list";
+    }
+
+    @RolesAllowed(value = "ROLE_ADMIN")
+    @PostMapping
+    public String Update(@ModelAttribute AirplaneSaveDtoReq airplane) {
+        loginService.Update(airplane);
+        return "redirect:/list";
+
+    }
+
+    @RolesAllowed(value = "ROLE_ADMIN")
+    @GetMapping("/add-form")
+    public ModelAndView addUpdateForm(@RequestParam("flightNo") String flightNo) {
+        return loginService.addUpdateForm(flightNo);
     }
 }

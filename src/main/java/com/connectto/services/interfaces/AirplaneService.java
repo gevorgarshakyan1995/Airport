@@ -1,13 +1,11 @@
 package com.connectto.services.interfaces;
 
-import com.connectto.DTO.Request.AirplaneSaveDtoReq;
-import com.connectto.DTO.Response.AirplaneInfoGetDto;
+import com.connectto.DTO.AirplaneSaveDtoReq;
+import com.connectto.DTO.AirplaneInfoGetDto;
 import com.connectto.Exception.NotFoundException;
-import com.connectto.enums.Remarks;
 import com.connectto.model.Airplane;
 
 
-import java.time.LocalTime;
 import java.util.List;
 
 public interface AirplaneService {

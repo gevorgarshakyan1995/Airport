@@ -14,7 +14,6 @@
 <div class="container">
 
     <h3>List Ticket</h3>
-
     <table class="table table-bordered table-striped">
         <br>
         <form th:action="@{/list}" method="GET">
@@ -55,6 +54,7 @@
             <td>
                 <a th:href="@{/book(flightNo=${airplane.flightNo},statusTicket=${airplane.statusTicket})}"
                    class="btn btn-success">Book</a>
+                <a th:href="@{/add-form(flightNo=${airplane.flightNo})}" class="btn btn-info">Update</a>
             </td>
         </tr>
 

@@ -1,7 +1,7 @@
 package com.connectto.services.implementations;
 
-import com.connectto.DTO.Request.AirplaneSaveDtoReq;
-import com.connectto.DTO.Response.AirplaneInfoGetDto;
+import com.connectto.DTO.AirplaneSaveDtoReq;
+import com.connectto.DTO.AirplaneInfoGetDto;
 import com.connectto.Exception.NotFoundException;
 import com.connectto.enums.Remarks;
 import com.connectto.model.Airplane;
@@ -10,7 +10,6 @@ import com.connectto.services.interfaces.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

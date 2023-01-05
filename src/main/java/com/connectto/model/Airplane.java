@@ -38,4 +38,16 @@ public class Airplane {
     @JsonIgnore
     @OneToMany(mappedBy = "airplane")
     private List<Flight> flights;
+
+    @Override
+    public String toString() {
+        return "Airplane{" +
+                "flightNo='" + flightNo + '\'' +
+                ", cityDepartune='" + cityDepartune + '\'' +
+                ", cityArrival='" + cityArrival + '\'' +
+                ", timeDepature=" + timeDepature +
+                ", timeArrivel=" + timeArrivel +
+                ", remarks=" + remarks +
+                '}';
+    }
 }

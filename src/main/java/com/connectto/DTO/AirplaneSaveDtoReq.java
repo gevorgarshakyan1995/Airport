@@ -1,9 +1,11 @@
-package com.connectto.DTO.Request;
+package com.connectto.DTO;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import java.time.LocalTime;
