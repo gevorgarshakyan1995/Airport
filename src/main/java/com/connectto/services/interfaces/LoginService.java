@@ -13,7 +13,8 @@ public interface LoginService {
 
     List<AirplaneInfoGetDto> login(Principal principal);
 
-    public ModelAndView getAirplaneByFlightTicket(String cityDepartune, String cityArrival, String timeFrom, String timeTo);
+    public ModelAndView getAirplaneByFlightTicket(String cityDepartune, String cityArrival, String timeFrom,
+                                                  String timeTo,Principal principal);
 
     void bookTichet(String flightNo, String statusTicket, Principal principal);
 

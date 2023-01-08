@@ -1,0 +1,64 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>List Airplaness</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+
+<body>
+
+
+<div class="container">
+
+    <h3>List Ticket</h3>
+    <table class="table table-bordered table-striped">
+        <br>
+        <form th:action="@{/list}" method="GET">
+            <input type="text" id="cityDepartune" name="cityDepartune" placeholder="City Departune"/>
+            <input type="text" id="cityArrival" name="cityArrival" placeholder="City Arrival"/>
+            <input type="text" id="timeFrom" name="timeFrom" placeholder="Time From Departune"/>
+            <input type="text" id="timeTo" name="timeTo" placeholder="Time To Departune"/>
+            <button type="submit" class="btn btn-primary col-2">Search</button>
+
+        </form>
+        &nbsp
+        <a th:href="@{/list}" class="btn btn-success">List All</a>
+        <br>
+        <br>
+        <thead>
+        <tr>
+            <th>Flight No</th>
+            <th>City Departune</th>
+            <th>City Arrival</th>
+            <th>Time Depature</th>
+            <th>Time Arrivel</th>
+            <th>Price</th>
+            <th>Dtatus Ticket</th>
+            <th>Quantity Ticket</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="airplane: ${airplanes}">
+            <td th:text="${airplane.flightNo}"/>
+            <td th:text="${airplane.cityDepartune}"/>
+            <td th:text="${airplane.cityArrival}"/>
+            <td th:text="${airplane.timeDepature}"/>
+            <td th:text="${airplane.timeArrivel}"/>
+            <td th:text="${airplane.price}"/>
+            <td th:text="${airplane.statusTicket}"/>
+            <td th:text="${airplane.count}"/>
+            <td>
+                <a th:href="@{/book(flightNo=${airplane.flightNo},statusTicket=${airplane.statusTicket})}"
+                   class="btn btn-success">Book</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

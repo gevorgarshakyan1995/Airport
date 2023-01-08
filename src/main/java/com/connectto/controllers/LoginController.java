@@ -30,9 +30,10 @@ public class LoginController {
     public ModelAndView getAirplaneByFlightTicket(@RequestParam(value = "cityDepartune", required = false) String cityDepartune,
                                                   @RequestParam(value = "cityArrival", required = false) String cityArrival,
                                                   @RequestParam(value = "timeFrom", required = false) String timeFrom,
-                                                  @RequestParam(value = "timeTo", required = false) String timeTo) {
+                                                  @RequestParam(value = "timeTo", required = false) String timeTo,
+                                                  Principal principal) {
 
-        return loginService.getAirplaneByFlightTicket(cityDepartune, cityArrival, timeFrom, timeTo);
+        return loginService.getAirplaneByFlightTicket(cityDepartune, cityArrival, timeFrom, timeTo,principal);
     }
 
     @GetMapping("/book")

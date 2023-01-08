@@ -1,7 +1,6 @@
 package com.connectto.repositores;
 
 
-import com.connectto.DTO.AirplaneSaveDtoReq;
 import com.connectto.DTO.AirplaneInfoGetDto;
 import com.connectto.DTO.TicketDto;
 import com.connectto.model.Airplane;
@@ -57,11 +56,24 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
             "FROM Airplane a " +
             "LEFT JOIN Flight p on (a.id=p.airplane.id)" +
             "WHERE a.id IN " +
-            "(SELECT i.airplane.id FROM Flight i WHERE i.price >= 0)" +
+            "(SELECT i.airplane.id FROM Flight i)" +
             "AND (?1 IS NULL OR a.cityDepartune = ?1)" +
             "AND (?2 IS NULL OR a.cityArrival = ?2)" +
             "AND (?3 IS NULL OR a.timeDepature >= ?3)" +
             "AND (?4 IS NULL OR a.timeArrivel <= ?4)")
     List<TicketDto> getAirplaneByFlightTicket(String cityDepartune, String cityArrival, String timeFrom, String timeTo);
 
+    @Query("SELECT new com.connectto.DTO.TicketDto(a.flightNo, " +
+            "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks," +
+            " p.price ,p.statusTicket,p.count ) " +
+            "FROM Airplane a " +
+            "LEFT JOIN Flight p on (a.id=p.airplane.id)" +
+            "WHERE a.id IN " +
+            "(SELECT i.airplane.id FROM Flight i WHERE i.count >= 1)" +
+            "AND (a.remarks = 'ON_TIME')" +
+            "AND (?1 IS NULL OR a.cityDepartune = ?1)" +
+            "AND (?2 IS NULL OR a.cityArrival = ?2)" +
+            "AND (?3 IS NULL OR a.timeDepature >= ?3)" +
+            "AND (?4 IS NULL OR a.timeArrivel <= ?4)")
+    List<TicketDto> getAirplaneByFlightTicketUser(String cityDepartune, String cityArrival, String timeFrom, String timeTo);
 }

@@ -5,10 +5,7 @@ import com.connectto.DTO.AirplaneInfoGetDto;
 import com.connectto.DTO.TicketDto;
 import com.connectto.enums.Remarks;
 import com.connectto.enums.StatusTicket;
-import com.connectto.model.Airplane;
-import com.connectto.model.Book;
-import com.connectto.model.Flight;
-import com.connectto.model.User;
+import com.connectto.model.*;
 import com.connectto.repositores.AirplaneRepository;
 import com.connectto.repositores.BookRepository;
 import com.connectto.repositores.FlightRepository;
@@ -22,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class LoginSeviceImpl implements LoginService {
@@ -48,11 +46,28 @@ public class LoginSeviceImpl implements LoginService {
     }
 
     @Override
-    public ModelAndView getAirplaneByFlightTicket(String cityDepartune, String cityArrival, String timeFrom, String timeTo) {
-        ModelAndView mav = new ModelAndView("list-airplanes");
-        List<TicketDto> list = airplaneRepository.getAirplaneByFlightTicket(cityDepartune, cityArrival, timeFrom, timeTo);
-        mav.addObject("airplanes", list);
-        return mav;
+    public ModelAndView getAirplaneByFlightTicket(String cityDepartune, String cityArrival, String timeFrom,
+                                                  String timeTo, Principal principal) {
+        boolean admin = false;
+        User user = userRepository.getByEmail(principal.getName());
+        for (Authority authority : user.getAuthoriti()) {
+            if (Objects.equals(authority.getName(), "ROLE_ADMIN")) {
+                admin = true;
+            }
+        }
+        if (admin) {
+            ModelAndView mav = new ModelAndView("list-airplanes");
+            List<TicketDto> list = airplaneRepository.getAirplaneByFlightTicket(cityDepartune, cityArrival,
+                    timeFrom, timeTo);
+            mav.addObject("airplanes", list);
+            return mav;
+        }else {
+            ModelAndView mav = new ModelAndView("list-airplanes-user");
+            List<TicketDto> list = airplaneRepository.getAirplaneByFlightTicketUser(cityDepartune, cityArrival,
+                    timeFrom, timeTo);
+            mav.addObject("airplanes", list);
+            return mav;
+        }
     }
 
     @Override
