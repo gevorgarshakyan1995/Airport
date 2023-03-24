@@ -35,8 +35,7 @@ public class Airplane {
     @Column(name = "Remarks")
     private Remarks remarks;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "airplane")
+    @OneToMany(mappedBy = "airplane",fetch = FetchType.LAZY)
     private List<Flight> flights;
 
     @Override

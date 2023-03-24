@@ -18,11 +18,11 @@ public class Flight {
 
     private Integer price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Airplane airplane;
 
-    @OneToMany(mappedBy = "flight" ,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "flight" ,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Book> book;
 
     @Enumerated(EnumType.STRING)
