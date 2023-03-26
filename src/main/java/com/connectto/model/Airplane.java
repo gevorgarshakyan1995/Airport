@@ -3,7 +3,6 @@ package com.connectto.model;
 import javax.persistence.*;
 
 import com.connectto.enums.Remarks;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.time.LocalTime;
