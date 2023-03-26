@@ -47,5 +47,6 @@ public class Airplane {
                 ", timeArrivel=" + timeArrivel +
                 ", remarks=" + remarks +
                 '}';
+
     }
 }
