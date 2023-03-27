@@ -1,5 +1,6 @@
 package com.connectto.controllers;
 
+import com.connectto.DTO.FlightDtoReq;
 import com.connectto.model.Flight;
 import com.connectto.services.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class FlightController {
 
     @RolesAllowed(value = "ROLE_ADMIN")
     @PostMapping
-    ResponseEntity<Void> save(@RequestBody Flight flight) {
+    ResponseEntity<Void> save(@RequestBody FlightDtoReq flight) {
         flightService.save(flight);
         return ResponseEntity.ok().build();
     }
