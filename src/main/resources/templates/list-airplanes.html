@@ -38,7 +38,9 @@
             <th>Price</th>
             <th>Dtatus Ticket</th>
             <th>Quantity Ticket</th>
+            <th>Rematks</th>
             <th>Actions</th>
+
         </tr>
         </thead>
         <tbody>
@@ -51,6 +53,7 @@
             <td th:text="${airplane.price}"/>
             <td th:text="${airplane.statusTicket}"/>
             <td th:text="${airplane.count}"/>
+            <td th:text="${airplane.remarks}"/>
             <td>
                 <a th:href="@{/book(flightNo=${airplane.flightNo},statusTicket=${airplane.statusTicket})}"
                    class="btn btn-success">Book</a>
