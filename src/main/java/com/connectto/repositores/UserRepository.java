@@ -16,5 +16,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM USER WHERE id IN " +
             "(SELECT user_id FROM book WHERE flight_id IN " +
             "(SELECT id FROM flight WHERE airplane_id = ?1 ))")
-    List<User> getByBookByFlightByAirplane(Long id);
+    List<User> getUserbyFlight(Long id);
 }

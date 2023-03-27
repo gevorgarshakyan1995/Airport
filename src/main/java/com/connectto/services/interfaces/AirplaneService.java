@@ -17,11 +17,10 @@ public interface AirplaneService {
                                              String remarks, String timeArrivel,
                                              String timeDepature);
 
-    List<AirplaneInfoGetDto> getAll();
 
     Airplane flightNo (String flightNo )throws NotFoundException;
 
     void update (String flightNo, String remarks) throws NotFoundException;
 
-    AirplaneInfoGetDto getByFlightNoSearch (String flightNo)throws NotFoundException;
+
 }

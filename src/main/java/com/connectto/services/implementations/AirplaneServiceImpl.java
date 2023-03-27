@@ -42,10 +42,6 @@ public class AirplaneServiceImpl implements AirplaneService {
                 , timeArrivel, timeDepature);
     }
 
-    @Override
-    public List<AirplaneInfoGetDto> getAll() {
-        return airplaneRepository.getAll();
-    }
 
     @Override
     public Airplane flightNo(String flightNo) throws NotFoundException {
@@ -63,12 +59,4 @@ public class AirplaneServiceImpl implements AirplaneService {
         airplaneRepository.save(airplane);
     }
 
-    @Override
-    public AirplaneInfoGetDto getByFlightNoSearch(String flightNo) throws NotFoundException {
-        AirplaneInfoGetDto airplaneInfoGetDto = airplaneRepository.getByFlightNoSearch(flightNo);
-        if (airplaneInfoGetDto == null) {
-            throw new NotFoundException("not found");
-        }
-        return airplaneInfoGetDto;
-    }
 }

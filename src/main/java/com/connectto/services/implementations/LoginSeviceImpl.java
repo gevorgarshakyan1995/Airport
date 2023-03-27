@@ -1,8 +1,7 @@
 package com.connectto.services.implementations;
 
 import com.connectto.DTO.AirplaneSaveDtoReq;
-import com.connectto.DTO.AirplaneInfoGetDto;
-import com.connectto.DTO.TicketDto;
+import com.connectto.DTO.FlightInfoGetDto;
 import com.connectto.enums.Remarks;
 import com.connectto.enums.StatusTicket;
 import com.connectto.model.*;
@@ -41,8 +40,8 @@ public class LoginSeviceImpl implements LoginService {
 
 
     @Override
-    public List<AirplaneInfoGetDto> login(Principal principal) {
-        return airplaneRepository.login(principal.getName());
+    public List<FlightInfoGetDto> login(Principal principal) {
+        return flightRepository.flidgtbyDelayedOrCancelled(principal.getName());
     }
 
     @Override
@@ -57,13 +56,13 @@ public class LoginSeviceImpl implements LoginService {
         }
         if (admin) {
             ModelAndView mav = new ModelAndView("list-airplanes");
-            List<TicketDto> list = airplaneRepository.getAirplaneByFlightTicket(cityDepartune, cityArrival,
+            List<FlightInfoGetDto> list = flightRepository.getFlightAndfilters(cityDepartune, cityArrival,
                     timeFrom, timeTo);
             mav.addObject("airplanes", list);
             return mav;
         }else {
             ModelAndView mav = new ModelAndView("list-airplanes-user");
-            List<TicketDto> list = airplaneRepository.getAirplaneByFlightTicketUser(cityDepartune, cityArrival,
+            List<FlightInfoGetDto> list = flightRepository.getFlightAndfiltersUser(cityDepartune, cityArrival,
                     timeFrom, timeTo);
             mav.addObject("airplanes", list);
             return mav;
@@ -91,7 +90,7 @@ public class LoginSeviceImpl implements LoginService {
     @Override
     public ModelAndView addUpdateForm(String flightNo) {
         ModelAndView mav = new ModelAndView("airplane-form");
-        AirplaneInfoGetDto airplane = airplaneRepository.getFlightNoUpdate(flightNo);
+        Airplane airplane = airplaneRepository.getByFlightNo(flightNo);
         mav.addObject("airplane", airplane);
         return mav;
     }
@@ -106,7 +105,7 @@ public class LoginSeviceImpl implements LoginService {
         airplaneRepository.save(airplane1);
         String subject = "Airplane company";
         String text = "Changed the flight of the plane   " + airplane1.toString();
-        List<User> users = userRepository.getByBookByFlightByAirplane(airplane1.getId());
+        List<User> users = userRepository.getUserbyFlight(airplane1.getId());
         for (User user : users) {
             mailSender.tokenSimpleMessage(user.getEmail(), subject, text);
         }
@@ -117,7 +116,7 @@ public class LoginSeviceImpl implements LoginService {
         Airplane airplane = airplaneRepository.getByFlightNo(flightNo);
         Flight flight = flightRepository.getByAirplane_IdAndStatusTicket(airplane.getId(),
                 StatusTicket.valueOf(statusTicket));
-        List<User> users = userRepository.getByBookByFlightByAirplane(airplane.getId());
+        List<User> users = userRepository.getUserbyFlight(airplane.getId());
         flightRepository.deleteById(flight.getId());
         String subject = "Airplane company";
         String text = "Delete the flight of the plane   " + airplane.toString();

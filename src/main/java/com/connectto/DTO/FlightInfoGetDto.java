@@ -7,7 +7,8 @@ import lombok.Data;
 import java.time.LocalTime;
 
 @Data
-public class TicketDto {
+public class FlightInfoGetDto {
+
     private String flightNo;
 
     private String cityDepartune;
@@ -22,13 +23,13 @@ public class TicketDto {
 
     private Integer price;
 
-    private StatusTicket statusTicket;
-
     private Integer count;
 
-    public TicketDto(String flightNo, String cityDepartune, String cityArrival, LocalTime timeDepature,
-                     LocalTime timeArrivel, Remarks remarks, Integer price, StatusTicket statusTicket,
-                     Integer count) {
+    private StatusTicket statusTicket;
+
+    public FlightInfoGetDto(String flightNo, String cityDepartune, String cityArrival,
+                            LocalTime timeDepature, LocalTime timeArrivel, Remarks remarks, Integer price,
+                            Integer count, StatusTicket statusTicket) {
         this.flightNo = flightNo;
         this.cityDepartune = cityDepartune;
         this.cityArrival = cityArrival;
@@ -36,8 +37,7 @@ public class TicketDto {
         this.timeArrivel = timeArrivel;
         this.remarks = remarks;
         this.price = price;
-        this.statusTicket = statusTicket;
         this.count = count;
+        this.statusTicket = statusTicket;
     }
 }
-

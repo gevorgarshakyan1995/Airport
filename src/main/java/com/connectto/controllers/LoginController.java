@@ -2,6 +2,7 @@ package com.connectto.controllers;
 
 import com.connectto.DTO.AirplaneSaveDtoReq;
 import com.connectto.DTO.AirplaneInfoGetDto;
+import com.connectto.DTO.FlightInfoGetDto;
 import com.connectto.services.interfaces.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class LoginController {
     private LoginService loginService;
 
     @GetMapping
-    ResponseEntity<List<AirplaneInfoGetDto>> login(Principal principal) {
+    ResponseEntity<List<FlightInfoGetDto>> login(Principal principal) {
         return ResponseEntity.ok(loginService.login(principal));
 
     }
