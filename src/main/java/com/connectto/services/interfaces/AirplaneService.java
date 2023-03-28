@@ -22,5 +22,6 @@ public interface AirplaneService {
 
     void update (String flightNo, String remarks) throws NotFoundException;
 
+    List<AirplaneInfoGetDto> findAllBy();
 
 }

@@ -17,19 +17,19 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
 
     @Query("SELECT new com.connectto.DTO.FlightInfoGetDto(u.flightNo,u.cityDepartune," +
             "u.cityArrival, u.timeDepature, u.timeArrivel, u.remarks, p.price, p.count, p.statusTicket)" +
-            "FROM Airplane u " +
-            "LEFT JOIN Flight p on (u.id=p.airplane.id)" +
+            "FROM Flight p  " +
+            "LEFT JOIN Airplane u on (p.airplane.id=u.id)" +
             "WHERE u.id IN (SELECT l.airplane.id FROM Flight l WHERE l.id IN" +
             "(SELECT p.flight.id FROM Book p WHERE p.user.id IN " +
             "(SELECT m.id FROM User m WHERE m.email = ?1 ))) AND" +
             "(u.remarks = 'DELAYYED' OR u.remarks = 'CANCELLED')")
-    List<FlightInfoGetDto> flidgtbyDelayedOrCancelled(String email);
+    List<FlightInfoGetDto> flidgtbyDelayedOrCancelledWithUser (String email);
 
     @Query("SELECT new com.connectto.DTO.FlightInfoGetDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks," +
             " p.price ,p.count, p.statusTicket ) " +
-            "FROM Airplane a " +
-            "LEFT JOIN Flight p on (a.id=p.airplane.id)" +
+            "FROM Flight p " +
+            "LEFT JOIN Airplane a on (p.airplane.id=a.id)" +
             "WHERE a.id IN " +
             "(SELECT i.airplane.id FROM Flight i)" +
             "AND (?1 IS NULL OR a.cityDepartune = ?1)" +
@@ -41,8 +41,8 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     @Query("SELECT new com.connectto.DTO.FlightInfoGetDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks," +
             " p.price ,p.count, p.statusTicket ) " +
-            "FROM Airplane a " +
-            "LEFT JOIN Flight p on (a.id=p.airplane.id)" +
+            "FROM Flight p " +
+            "LEFT JOIN Airplane a on (p.airplane.id =a.id)" +
             "WHERE a.id IN " +
             "(SELECT i.airplane.id FROM Flight i WHERE i.count >= 1)" +
             "AND (a.remarks = 'ON_TIME')" +

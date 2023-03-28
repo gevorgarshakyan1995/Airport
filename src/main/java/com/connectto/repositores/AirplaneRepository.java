@@ -25,4 +25,6 @@ public interface AirplaneRepository extends JpaRepository<Airplane, Long> {
 
     Airplane getByFlightNo(String flightNo);
 
+    List<AirplaneInfoGetDto> findAllBy();
+
 }

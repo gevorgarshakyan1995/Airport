@@ -59,4 +59,9 @@ public class AirplaneServiceImpl implements AirplaneService {
         airplaneRepository.save(airplane);
     }
 
+    @Override
+    public List<AirplaneInfoGetDto> findAllBy() {
+        return airplaneRepository.findAllBy();
+    }
+
 }

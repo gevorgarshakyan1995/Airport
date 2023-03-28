@@ -37,6 +37,12 @@ public class AirplanesController {
     }
 
     @RolesAllowed(value = "ROLE_ADMIN")
+    @GetMapping
+    ResponseEntity<List<AirplaneInfoGetDto>> getAllSearch() {
+        return ResponseEntity.ok(airplaneService.findAllBy());
+    }
+
+    @RolesAllowed(value = "ROLE_ADMIN")
     @PutMapping
     ResponseEntity<Void> update(@RequestParam("flightNo") String flightNo,
                                 @RequestParam("remarks") String remarks) throws NotFoundException {
