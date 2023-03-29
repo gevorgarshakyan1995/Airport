@@ -13,17 +13,17 @@ import java.util.List;
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Long> {
 
-    Flight getByStatusTicketAndAirplane_FlightNo (StatusTicket StatusTicket ,String Airplane_FlightNo);
+    Flight getByStatusTicketAndAirplane_FlightNo(StatusTicket StatusTicket, String Airplane_FlightNo);
 
     @Query("SELECT new com.connectto.DTO.FlightInfoGetDto(u.flightNo,u.cityDepartune," +
             "u.cityArrival, u.timeDepature, u.timeArrivel, u.remarks, p.price, p.count, p.statusTicket)" +
             "FROM Flight p  " +
             "LEFT JOIN Airplane u on (p.airplane.id=u.id)" +
-            "WHERE u.id IN (SELECT l.airplane.id FROM Flight l WHERE l.id IN" +
-            "(SELECT p.flight.id FROM Book p WHERE p.user.id IN " +
-            "(SELECT m.id FROM User m WHERE m.email = ?1 ))) AND" +
+            "LEFT JOIN Book b on (p.id=b.flight.id)" +
+            "LEFT JOIN User k on (b.user.id = k.id)" +
+            "WHERE (k.email = ?1) AND" +
             "(u.remarks = 'DELAYYED' OR u.remarks = 'CANCELLED')")
-    List<FlightInfoGetDto> flightByDelayedOrCancelledForUser (String email);
+    List<FlightInfoGetDto> flightByDelayedOrCancelledForUser(String email);
 
     @Query("SELECT new com.connectto.DTO.FlightInfoGetDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks," +
@@ -34,7 +34,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
             "AND (?2 IS NULL OR a.cityArrival = ?2)" +
             "AND (?3 IS NULL OR a.timeDepature >= ?3)" +
             "AND (?4 IS NULL OR a.timeArrivel <= ?4)")
-    List<FlightInfoGetDto> getFlightAndfilters (String cityDepartune, String cityArrival, String timeFrom, String timeTo);
+    List<FlightInfoGetDto> getFlightAndfilters(String cityDepartune, String cityArrival, String timeFrom, String timeTo);
 
     @Query("SELECT new com.connectto.DTO.FlightInfoGetDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks," +
@@ -47,5 +47,5 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
             "AND (?2 IS NULL OR a.cityArrival = ?2)" +
             "AND (?3 IS NULL OR a.timeDepature >= ?3)" +
             "AND (?4 IS NULL OR a.timeArrivel <= ?4)")
-    List<FlightInfoGetDto> getFlightAndfiltersUser (String cityDepartune, String cityArrival, String timeFrom, String timeTo);
+    List<FlightInfoGetDto> getFlightAndfiltersUser(String cityDepartune, String cityArrival, String timeFrom, String timeTo);
 }
