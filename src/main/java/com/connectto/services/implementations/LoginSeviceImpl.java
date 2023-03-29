@@ -17,7 +17,7 @@ public class LoginSeviceImpl implements LoginService {
 
     @Override
     public List<FlightInfoGetDto> login(Principal principal) {
-        return flightRepository.flidgtbyDelayedOrCancelledWithUser(principal.getName());
+        return flightRepository.flightByDelayedOrCancelledForUser(principal.getName());
     }
 
 }

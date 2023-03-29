@@ -23,7 +23,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
             "(SELECT p.flight.id FROM Book p WHERE p.user.id IN " +
             "(SELECT m.id FROM User m WHERE m.email = ?1 ))) AND" +
             "(u.remarks = 'DELAYYED' OR u.remarks = 'CANCELLED')")
-    List<FlightInfoGetDto> flidgtbyDelayedOrCancelledWithUser (String email);
+    List<FlightInfoGetDto> flightByDelayedOrCancelledForUser (String email);
 
     @Query("SELECT new com.connectto.DTO.FlightInfoGetDto(a.flightNo, " +
             "a.cityDepartune, a.cityArrival, a.timeDepature, a.timeArrivel, a.remarks," +
