@@ -78,7 +78,6 @@ public class FlightServiceImpl implements FlightService {
     @Override
     @Transactional
     public void bookTichet(String flightNo, String statusTicket, Principal principal) {
-        Airplane airplane = airplaneRepository.getByFlightNo(flightNo);
         User user = userRepository.getByEmail(principal.getName());
         Flight flight = flightRepository.getByStatusTicketAndAirplane_FlightNo(StatusTicket.valueOf(statusTicket),
                 flightNo);
