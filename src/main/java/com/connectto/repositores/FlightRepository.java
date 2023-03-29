@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Long> {
 
-    Flight getByAirplane_IdAndStatusTicket(Long airplane_Id, StatusTicket StatusTicket);
+    Flight getByStatusTicketAndAirplane_FlightNo (StatusTicket StatusTicket ,String Airplane_FlightNo);
 
     @Query("SELECT new com.connectto.DTO.FlightInfoGetDto(u.flightNo,u.cityDepartune," +
             "u.cityArrival, u.timeDepature, u.timeArrivel, u.remarks, p.price, p.count, p.statusTicket)" +

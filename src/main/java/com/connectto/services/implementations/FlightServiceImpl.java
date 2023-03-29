@@ -49,6 +49,7 @@ public class FlightServiceImpl implements FlightService {
         flight.setStatusTicket(flight.getStatusTicket());
         flightRepository.save(flight);
     }
+
     @Override
     public ModelAndView getAirplaneByFlightTicket(String cityDepartune, String cityArrival, String timeFrom,
                                                   String timeTo, Principal principal) {
@@ -65,7 +66,7 @@ public class FlightServiceImpl implements FlightService {
                     timeFrom, timeTo);
             mav.addObject("airplanes", list);
             return mav;
-        }else {
+        } else {
             ModelAndView mav = new ModelAndView("list-airplanes-user");
             List<FlightInfoGetDto> list = flightRepository.getFlightAndfiltersUser(cityDepartune, cityArrival,
                     timeFrom, timeTo);
@@ -79,8 +80,8 @@ public class FlightServiceImpl implements FlightService {
     public void bookTichet(String flightNo, String statusTicket, Principal principal) {
         Airplane airplane = airplaneRepository.getByFlightNo(flightNo);
         User user = userRepository.getByEmail(principal.getName());
-        Flight flight = flightRepository.getByAirplane_IdAndStatusTicket(airplane.getId(),
-                StatusTicket.valueOf(statusTicket));
+        Flight flight = flightRepository.getByStatusTicketAndAirplane_FlightNo(StatusTicket.valueOf(statusTicket),
+                flightNo);
         Book book = new Book();
         book.setFlight(flight);
         book.setUser(user);
@@ -118,13 +119,12 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public void delete(String flightNo, String statusTicket) {
-        Airplane airplane = airplaneRepository.getByFlightNo(flightNo);
-        Flight flight = flightRepository.getByAirplane_IdAndStatusTicket(airplane.getId(),
-                StatusTicket.valueOf(statusTicket));
-        List<User> users = userRepository.getUserbyFlight(airplane.getId());
+        Flight flight = flightRepository.getByStatusTicketAndAirplane_FlightNo(StatusTicket.valueOf(statusTicket),
+                flightNo);
+        List<User> users = userRepository.getUserbyFlight(flight.getId());
         flightRepository.deleteById(flight.getId());
         String subject = "Airplane company";
-        String text = "Delete the flight of the plane   " + airplane.toString();
+        String text = "Delete the flight of the plane " + flightNo + " " + statusTicket;
         for (User user : users) {
             mailSender.tokenSimpleMessage(user.getEmail(), subject, text);
         }
