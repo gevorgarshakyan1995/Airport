@@ -15,7 +15,7 @@
     <h3>Airplane</h3>
     <hr/>
 
-    <form th:action="@{/}" th:object="${airplane}" method="POST">
+    <form th:action="@{/flight/Update}" th:object="${airplane}" method="POST">
 
         <input type="text" th:field="*{flightNo}" class="form-control col-4 mb-4" placeholder="Flight No" />
 
@@ -30,7 +30,7 @@
 
     </form>
     <hr/>
-    <a th:href="@{/list}">Back to list</a>
+    <a th:href="@{/flight/list}">Back to list</a>
 </div>
 
 </body>

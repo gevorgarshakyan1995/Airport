@@ -30,9 +30,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
             " p.price ,p.count, p.statusTicket ) " +
             "FROM Flight p " +
             "LEFT JOIN Airplane a on (p.airplane.id=a.id)" +
-            "WHERE a.id IN " +
-            "(SELECT i.airplane.id FROM Flight i)" +
-            "AND (?1 IS NULL OR a.cityDepartune = ?1)" +
+            "WHERE  (?1 IS NULL OR a.cityDepartune = ?1)" +
             "AND (?2 IS NULL OR a.cityArrival = ?2)" +
             "AND (?3 IS NULL OR a.timeDepature >= ?3)" +
             "AND (?4 IS NULL OR a.timeArrivel <= ?4)")
@@ -43,8 +41,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
             " p.price ,p.count, p.statusTicket ) " +
             "FROM Flight p " +
             "LEFT JOIN Airplane a on (p.airplane.id =a.id)" +
-            "WHERE a.id IN " +
-            "(SELECT i.airplane.id FROM Flight i WHERE i.count >= 1)" +
+            "WHERE (p.count >= 1)" +
             "AND (a.remarks = 'ON_TIME')" +
             "AND (?1 IS NULL OR a.cityDepartune = ?1)" +
             "AND (?2 IS NULL OR a.cityArrival = ?2)" +

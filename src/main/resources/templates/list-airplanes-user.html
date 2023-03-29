@@ -16,7 +16,7 @@
     <h3>List Ticket</h3>
     <table class="table table-bordered table-striped">
         <br>
-        <form th:action="@{/list}" method="GET">
+        <form th:action="@{/flight/list}" method="GET">
             <input type="text" id="cityDepartune" name="cityDepartune" placeholder="City Departune"/>
             <input type="text" id="cityArrival" name="cityArrival" placeholder="City Arrival"/>
             <input type="text" id="timeFrom" name="timeFrom" placeholder="Time From Departune"/>
@@ -25,7 +25,7 @@
 
         </form>
         &nbsp
-        <a th:href="@{/list}" class="btn btn-success">List All</a>
+        <a th:href="@{/flight/list}" class="btn btn-success">List All</a>
         <br>
         <br>
         <thead>
@@ -52,7 +52,7 @@
             <td th:text="${airplane.statusTicket}"/>
             <td th:text="${airplane.count}"/>
             <td>
-                <a th:href="@{/book(flightNo=${airplane.flightNo},statusTicket=${airplane.statusTicket})}"
+                <a th:href="@{/flight/book(flightNo=${airplane.flightNo},statusTicket=${airplane.statusTicket})}"
                    class="btn btn-success">Book</a>
             </td>
         </tr>
