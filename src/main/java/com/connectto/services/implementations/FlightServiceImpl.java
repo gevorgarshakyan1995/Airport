@@ -18,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightServiceImpl implements FlightService {
@@ -60,16 +62,39 @@ public class FlightServiceImpl implements FlightService {
                 admin = true;
             }
         }
+        List<Flight> flights = flightRepository.findByAirplaneIsNotNull();
+        List<FlightInfoGetDto> list = flights.stream()
+                .map(flight -> new FlightInfoGetDto(
+                        flight.getAirplane().getFlightNo(),
+                        flight.getAirplane().getCityDepartune(),
+                        flight.getAirplane().getCityArrival(),
+                        flight.getAirplane().getTimeDepature(),
+                        flight.getAirplane().getTimeArrivel(),
+                        flight.getAirplane().getRemarks(),
+                        flight.getPrice(),
+                        flight.getCount(),
+                        flight.getStatusTicket()))
+                .collect(Collectors.toList());
+
+        if (cityArrival != null && !cityArrival.isEmpty()) {
+            list.removeIf(flightInfoGetDto -> !cityArrival.equals(flightInfoGetDto.getCityArrival()));
+        }
+        if (cityDepartune != null && !cityDepartune.isEmpty()) {
+            list.removeIf(flightInfoGetDto -> !cityDepartune.equals(flightInfoGetDto.getCityDepartune()));
+        }
+        if (timeFrom != null && !timeFrom.isEmpty()) {
+            list.removeIf(flightInfoGetDto -> !((flightInfoGetDto.getTimeDepature().compareTo(LocalTime.parse(timeFrom))) >= 0));
+        }
+        if (timeTo != null && !timeTo.isEmpty()) {
+            list.removeIf(flightInfoGetDto -> !((flightInfoGetDto.getTimeArrivel().compareTo(LocalTime.parse(timeTo))) <= 0));
+        }
         if (admin) {
             ModelAndView mav = new ModelAndView("list-airplanes");
-            List<FlightInfoGetDto> list = flightRepository.getFlightAndfilters(cityDepartune, cityArrival,
-                    timeFrom, timeTo);
             mav.addObject("airplanes", list);
             return mav;
         } else {
+            list.removeIf(flightInfoGetDto -> ((flightInfoGetDto.getRemarks() != Remarks.ON_TIME) | (flightInfoGetDto.getCount() == 0)));
             ModelAndView mav = new ModelAndView("list-airplanes-user");
-            List<FlightInfoGetDto> list = flightRepository.getFlightAndfiltersUser(cityDepartune, cityArrival,
-                    timeFrom, timeTo);
             mav.addObject("airplanes", list);
             return mav;
         }

@@ -10,6 +10,7 @@ import com.connectto.services.interfaces.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -38,8 +39,24 @@ public class AirplaneServiceImpl implements AirplaneService {
                                                     String remarks, String timeArrivel,
                                                     String timeDepature) {
 
-        return airplaneRepository.getAllAndSearch(cityDepartune, cityArrival, remarks
-                , timeArrivel, timeDepature);
+        List<AirplaneInfoGetDto> list =airplaneRepository.findAllBy();
+        if (cityArrival != null && !cityArrival.isEmpty()) {
+            list.removeIf(flightInfoGetDto -> !cityArrival.equals(flightInfoGetDto.getCityArrival()));
+        }
+        if (cityDepartune != null && !cityDepartune.isEmpty()) {
+            list.removeIf(flightInfoGetDto -> !cityDepartune.equals(flightInfoGetDto.getCityDepartune()));
+        }
+        if (timeArrivel != null && !timeArrivel.isEmpty()) {
+            list.removeIf(flightInfoGetDto -> !((flightInfoGetDto.getTimeArrivel().compareTo(LocalTime.parse(timeArrivel))) == 0));
+        }
+        if (timeDepature != null && !timeDepature.isEmpty()) {
+            list.removeIf(flightInfoGetDto -> !((flightInfoGetDto.getTimeDepature().compareTo(LocalTime.parse(timeDepature))) == 0));
+        }
+
+        if (remarks != null && !remarks.isEmpty()) {
+            list.removeIf(flightInfoGetDto -> !(flightInfoGetDto.getRemarks() == Remarks.valueOf(remarks)));
+        }
+        return list;
     }
 
 
