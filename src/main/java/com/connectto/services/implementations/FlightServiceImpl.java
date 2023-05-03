@@ -110,7 +110,7 @@ public class FlightServiceImpl implements FlightService {
         airplaneRepository.save(airplane1);
         String subject = "Airplane company";
         String text = "Changed the flight of the plane   " + airplane1.toString();
-        List<User> users = userRepository.getUserbyFlight(airplane1.getId());
+        List<User> users = userRepository.findByBook_Flight_Id(airplane1.getId());
         for (User user : users) {
             mailSender.tokenSimpleMessage(user.getEmail(), subject, text);
         }
@@ -120,7 +120,7 @@ public class FlightServiceImpl implements FlightService {
     public void delete(String flightNo, String statusTicket) {
         Flight flight = flightRepository.getByStatusTicketAndAirplane_FlightNo(StatusTicket.valueOf(statusTicket),
                 flightNo);
-        List<User> users = userRepository.getUserbyFlight(flight.getId());
+        List<User> users = userRepository.findByBook_Flight_Id(flight.getId());
         flightRepository.deleteById(flight.getId());
         String subject = "Airplane company";
         String text = "Delete the flight of the plane " + flightNo + " " + statusTicket;

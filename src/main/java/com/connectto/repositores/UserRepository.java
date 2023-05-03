@@ -13,6 +13,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User getByEmail(String email);
 
-    @Query(value = "SELECT u FROM User u LEFT JOIN Book b on (u.id=b.user.id) WHERE (b.flight.id = ?1)")
-    List<User> getUserbyFlight(Long id);
+    List<User> findByBook_Flight_Id(Long flightId);
 }
