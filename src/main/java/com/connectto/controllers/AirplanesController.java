@@ -1,18 +1,18 @@
 package com.connectto.controllers;
 
-import com.connectto.DTO.AirplaneSaveDtoReq;
-import com.connectto.DTO.AirplaneInfoGetDto;
+import com.connectto.DTO.AirplaneDto;
 import com.connectto.Exception.NotFoundException;
 import com.connectto.services.interfaces.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping(value = "/airplane")
 public class AirplanesController {
 
@@ -21,14 +21,14 @@ public class AirplanesController {
 
     @RolesAllowed(value = "ROLE_ADMIN")
     @PostMapping
-    ResponseEntity<Void> save(@RequestBody AirplaneSaveDtoReq airplaneSaveDtoReq) {
-        airplaneService.save(airplaneSaveDtoReq);
+    ResponseEntity<Void> save(@RequestBody AirplaneDto airplaneDto) {
+        airplaneService.save(airplaneDto);
         return ResponseEntity.ok().build();
     }
 
     @RolesAllowed(value = "ROLE_ADMIN")
     @GetMapping("/search")
-    ResponseEntity<List<AirplaneInfoGetDto>> getAllAndSearch(@RequestParam(value = "cityDepartune", required = false) String cityDepartune,
+    ResponseEntity<List<AirplaneDto>> getAllAndSearch(@RequestParam(value = "cityDepartune", required = false) String cityDepartune,
                                                              @RequestParam(value = "cityArrival", required = false) String cityArrival,
                                                              @RequestParam(value = "remarks", required = false) String remarks,
                                                              @RequestParam(value = "timeArrivel", required = false) String timeArrivel,
@@ -37,17 +37,11 @@ public class AirplanesController {
     }
 
     @RolesAllowed(value = "ROLE_ADMIN")
-    @GetMapping
-    ResponseEntity<List<AirplaneInfoGetDto>> getAllSearch() {
-        return ResponseEntity.ok(airplaneService.findAllBy());
-    }
+    @PostMapping("/Update")
+    public String Update(@ModelAttribute AirplaneDto airplane) {
+        airplaneService.Update(airplane);
+        return "redirect:/flight/list";
 
-    @RolesAllowed(value = "ROLE_ADMIN")
-    @PutMapping
-    ResponseEntity<Void> update(@RequestParam("flightNo") String flightNo,
-                                @RequestParam("remarks") String remarks) throws NotFoundException {
-        airplaneService.update(flightNo, remarks);
-        return ResponseEntity.ok().build();
     }
 
 }

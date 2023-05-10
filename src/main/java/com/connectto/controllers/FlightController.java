@@ -1,8 +1,8 @@
 package com.connectto.controllers;
 
-import com.connectto.DTO.AirplaneSaveDtoReq;
-import com.connectto.DTO.FlightDtoReq;
+import com.connectto.DTO.AirplaneDto;
 
+import com.connectto.DTO.FlightSaveDto;
 import com.connectto.services.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class FlightController {
 
     @RolesAllowed(value = "ROLE_ADMIN")
     @PostMapping
-    ResponseEntity<Void> save(@RequestBody FlightDtoReq flight) {
+    ResponseEntity<Void> save(@RequestBody FlightSaveDto flight) {
         flightService.save(flight);
         return ResponseEntity.ok().build();
     }
@@ -40,14 +40,6 @@ public class FlightController {
                              @RequestParam("statusTicket") String statusTicket, Principal principal) {
         flightService.bookTichet(flightNo, statusTicket, principal);
         return "redirect:/flight/list";
-    }
-
-    @RolesAllowed(value = "ROLE_ADMIN")
-    @PostMapping("/Update")
-    public String Update(@ModelAttribute AirplaneSaveDtoReq airplane) {
-        flightService.Update(airplane);
-        return "redirect:/flight/list";
-
     }
 
     @RolesAllowed(value = "ROLE_ADMIN")

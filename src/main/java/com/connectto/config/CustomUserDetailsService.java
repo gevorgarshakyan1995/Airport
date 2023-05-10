@@ -1,6 +1,7 @@
 package com.connectto.config;
 
 
+import com.connectto.DTO.UserDto;
 import com.connectto.Exception.NotFoundException;
 import com.connectto.model.Authority;
 import com.connectto.model.User;
@@ -25,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user;
+        UserDto user;
         try{
             user = userService.getBYEmail(s);
         }catch (NotFoundException e){

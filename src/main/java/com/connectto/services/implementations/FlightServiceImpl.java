@@ -1,8 +1,10 @@
 package com.connectto.services.implementations;
 
-import com.connectto.DTO.AirplaneSaveDtoReq;
-import com.connectto.DTO.FlightDtoReq;
+import com.connectto.DTO.AirplaneDto;
 import com.connectto.DTO.FlightInfoGetDto;
+import com.connectto.DTO.FlightSaveDto;
+import com.connectto.Mapper.AirplaneMapper;
+import com.connectto.Mapper.FlightMapper;
 import com.connectto.enums.Remarks;
 import com.connectto.enums.StatusTicket;
 import com.connectto.model.*;
@@ -12,6 +14,7 @@ import com.connectto.repositores.FlightRepository;
 import com.connectto.repositores.UserRepository;
 import com.connectto.services.interfaces.FlightService;
 import com.connectto.util.MailSender;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +24,6 @@ import java.security.Principal;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class FlightServiceImpl implements FlightService {
@@ -41,14 +43,15 @@ public class FlightServiceImpl implements FlightService {
     @Autowired
     private MailSender mailSender;
 
+    private final FlightMapper mapper  = Mappers.getMapper(FlightMapper.class);
+
+    private final AirplaneMapper mapperAirplane  = Mappers.getMapper(AirplaneMapper.class);
+
     @Override
-    public void save(FlightDtoReq flightDtoReq) {
-        Airplane airplane = airplaneRepository.getByFlightNo(flightDtoReq.getFlightNo());
-        Flight flight = new Flight();
-        flight.setCount(flightDtoReq.getCount());
+    public void save(FlightSaveDto flightSaveDto) {
+        Airplane airplane = airplaneRepository.getByFlightNo(flightSaveDto.getAirplane().getFlightNo());
+        Flight flight = mapper.toFlight(flightSaveDto);
         flight.setAirplane(airplane);
-        flight.setPrice(flight.getPrice());
-        flight.setStatusTicket(flight.getStatusTicket());
         flightRepository.save(flight);
     }
 
@@ -62,19 +65,7 @@ public class FlightServiceImpl implements FlightService {
                 admin = true;
             }
         }
-        List<Flight> flights = flightRepository.findByAirplaneIsNotNull();
-        List<FlightInfoGetDto> list = flights.stream()
-                .map(flight -> new FlightInfoGetDto(
-                        flight.getAirplane().getFlightNo(),
-                        flight.getAirplane().getCityDepartune(),
-                        flight.getAirplane().getCityArrival(),
-                        flight.getAirplane().getTimeDepature(),
-                        flight.getAirplane().getTimeArrivel(),
-                        flight.getAirplane().getRemarks(),
-                        flight.getPrice(),
-                        flight.getCount(),
-                        flight.getStatusTicket()))
-                .collect(Collectors.toList());
+        List<FlightInfoGetDto> list = mapper.toFlightDtos(flightRepository.findByAirplaneIsNotNull());
 
         if (cityArrival != null && !cityArrival.isEmpty()) {
             list.removeIf(flightInfoGetDto -> !cityArrival.equals(flightInfoGetDto.getCityArrival()));
@@ -125,21 +116,6 @@ public class FlightServiceImpl implements FlightService {
         return mav;
     }
 
-    @Override
-    public void Update(AirplaneSaveDtoReq airplane) {
-        Airplane airplane1 = airplaneRepository.getByFlightNo(airplane.getFlightNo());
-        airplane1.setRemarks(Remarks.valueOf(airplane.getRemarks()));
-        airplane1.setTimeArrivel(airplane.getTimeArrivel());
-        airplane1.setTimeDepature(airplane.getTimeDepature());
-        airplane1.setFlightNo(airplane.getFlightNo());
-        airplaneRepository.save(airplane1);
-        String subject = "Airplane company";
-        String text = "Changed the flight of the plane   " + airplane1.toString();
-        List<User> users = userRepository.findByBook_Flight_Id(airplane1.getId());
-        for (User user : users) {
-            mailSender.tokenSimpleMessage(user.getEmail(), subject, text);
-        }
-    }
 
     @Override
     public void delete(String flightNo, String statusTicket) {
