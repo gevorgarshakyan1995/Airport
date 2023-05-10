@@ -1,10 +1,7 @@
 package com.connectto.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 public class Book {
     @Id
@@ -19,5 +16,27 @@ public class Book {
     @JoinColumn(name = "flight_id")
     private Flight flight;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
 }

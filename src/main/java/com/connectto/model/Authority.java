@@ -1,10 +1,7 @@
 package com.connectto.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 public class Authority {
     @Id
@@ -14,4 +11,20 @@ public class Authority {
 
     @Column(name = "name")
     private String name;
+
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
