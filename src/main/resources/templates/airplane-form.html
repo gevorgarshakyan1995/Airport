@@ -15,7 +15,7 @@
     <h3>Airplane</h3>
     <hr/>
 
-    <form th:action="@{/flight/Update}" th:object="${airplane}" method="POST">
+    <form th:action="@{/airplane/Update}" th:object="${airplane}" method="POST">
 
         <input type="text" th:field="*{flightNo}" class="form-control col-4 mb-4" placeholder="Flight No" />
 
