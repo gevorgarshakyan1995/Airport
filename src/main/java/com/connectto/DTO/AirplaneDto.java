@@ -1,11 +1,11 @@
 package com.connectto.DTO;
 
+
 import com.connectto.enums.Remarks;
-import com.connectto.enums.StatusTicket;
 
 import java.time.LocalTime;
 
-public class FlightInfoGetDto {
+public class AirplaneDto {
 
     private String flightNo;
 
@@ -17,13 +17,7 @@ public class FlightInfoGetDto {
 
     private LocalTime timeArrivel;
 
-    private Remarks remarks;
-
-    private Integer price;
-
-    private Integer count;
-
-    private StatusTicket statusTicket;
+    private Remarks remarks;;
 
     public String getFlightNo() {
         return flightNo;
@@ -71,29 +65,5 @@ public class FlightInfoGetDto {
 
     public void setRemarks(Remarks remarks) {
         this.remarks = remarks;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public StatusTicket getStatusTicket() {
-        return statusTicket;
-    }
-
-    public void setStatusTicket(StatusTicket statusTicket) {
-        this.statusTicket = statusTicket;
     }
 }
