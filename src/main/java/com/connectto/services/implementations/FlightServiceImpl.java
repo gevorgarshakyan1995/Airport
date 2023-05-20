@@ -45,8 +45,6 @@ public class FlightServiceImpl implements FlightService {
 
     private final FlightMapper mapper  = Mappers.getMapper(FlightMapper.class);
 
-    private final AirplaneMapper mapperAirplane  = Mappers.getMapper(AirplaneMapper.class);
-
     @Override
     public void save(FlightSaveDto flightSaveDto) {
         Airplane airplane = airplaneRepository.getByFlightNo(flightSaveDto.getAirplane().getFlightNo());

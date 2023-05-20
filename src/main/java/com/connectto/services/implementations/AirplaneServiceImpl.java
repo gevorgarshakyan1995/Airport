@@ -3,7 +3,6 @@ package com.connectto.services.implementations;
 import com.connectto.DTO.AirplaneDto;
 import com.connectto.Exception.NotFoundException;
 import com.connectto.Mapper.AirplaneMapper;
-import com.connectto.enums.Remarks;
 import com.connectto.model.Airplane;
 import com.connectto.model.User;
 import com.connectto.repositores.AirplaneRepository;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -43,8 +41,7 @@ public class AirplaneServiceImpl implements AirplaneService {
 
     @Override
     public List<AirplaneDto> getAllAndSearch(String cityDepartune, String cityArrival,
-                                             String remarks, String timeArrivel,
-                                             String timeDepature) {
+                                             String remarks, String timeArrivel, String timeDepature) {
         Specification<Airplane> specification = AirplaneSpecifications.getAllAndSearch(cityDepartune,
                 cityArrival, remarks, timeArrivel, timeDepature);
         return mapper.toAirplaneDto(airplaneRepository.findAll(specification));
