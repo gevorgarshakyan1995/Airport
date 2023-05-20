@@ -9,9 +9,11 @@ import com.connectto.model.User;
 import com.connectto.repositores.AirplaneRepository;
 import com.connectto.repositores.UserRepository;
 import com.connectto.services.interfaces.AirplaneService;
+import com.connectto.specification.AirplaneSpecifications;
 import com.connectto.util.MailSender;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
@@ -30,7 +32,7 @@ public class AirplaneServiceImpl implements AirplaneService {
     @Autowired
     private MailSender mailSender;
 
-    private final AirplaneMapper mapper  = Mappers.getMapper(AirplaneMapper.class);
+    private final AirplaneMapper mapper = Mappers.getMapper(AirplaneMapper.class);
 
     @Override
     public void save(AirplaneDto airplaneDto) {
@@ -41,28 +43,11 @@ public class AirplaneServiceImpl implements AirplaneService {
 
     @Override
     public List<AirplaneDto> getAllAndSearch(String cityDepartune, String cityArrival,
-                                                    String remarks, String timeArrivel,
-                                                    String timeDepature) {
-
-        List<AirplaneDto> list = mapper.toAirplaneDto(airplaneRepository.findAll());
-
-        if (cityArrival != null && !cityArrival.isEmpty()) {
-            list.removeIf(airplaneDto -> !cityArrival.equals(airplaneDto.getCityArrival()));
-        }
-        if (cityDepartune != null && !cityDepartune.isEmpty()) {
-            list.removeIf(airplaneDto -> !cityDepartune.equals(airplaneDto.getCityDepartune()));
-        }
-        if (timeArrivel != null && !timeArrivel.isEmpty()) {
-            list.removeIf(airplaneDto -> !((airplaneDto.getTimeArrivel().compareTo(LocalTime.parse(timeArrivel))) == 0));
-        }
-        if (timeDepature != null && !timeDepature.isEmpty()) {
-            list.removeIf(airplaneDto -> !((airplaneDto.getTimeDepature().compareTo(LocalTime.parse(timeDepature))) == 0));
-        }
-
-        if (remarks != null && !remarks.isEmpty()) {
-            list.removeIf(airplaneDto -> !(airplaneDto.getRemarks() == Remarks.valueOf(remarks)));
-        }
-        return list;
+                                             String remarks, String timeArrivel,
+                                             String timeDepature) {
+        Specification<Airplane> specification = AirplaneSpecifications.getAllAndSearch(cityDepartune,
+                cityArrival, remarks, timeArrivel, timeDepature);
+        return mapper.toAirplaneDto(airplaneRepository.findAll(specification));
     }
 
 
