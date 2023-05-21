@@ -3,6 +3,7 @@ package com.connectto.controllers;
 import com.connectto.DTO.AirplaneDto;
 
 import com.connectto.DTO.FlightSaveDto;
+import com.connectto.DTO.SearchFligtDto;
 import com.connectto.services.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +27,9 @@ public class FlightController {
         return ResponseEntity.ok().build();
     }
     @GetMapping({"/list"})
-    public ModelAndView getAirplaneByFlightTicket(@RequestParam(value = "cityDepartune", required = false) String cityDepartune,
-                                                  @RequestParam(value = "cityArrival", required = false) String cityArrival,
-                                                  @RequestParam(value = "timeFrom", required = false) String timeFrom,
-                                                  @RequestParam(value = "timeTo", required = false) String timeTo,
+    public ModelAndView getAirplaneByFlightTicket(@ModelAttribute SearchFligtDto fligtDto,
                                                   Principal principal) {
-
-        return flightService.getAirplaneByFlightTicket(cityDepartune, cityArrival, timeFrom, timeTo,principal);
+        return flightService.getAirplaneByFlightTicket(fligtDto,principal);
     }
 
     @GetMapping("/book")
