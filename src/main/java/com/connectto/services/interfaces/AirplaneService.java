@@ -1,6 +1,7 @@
 package com.connectto.services.interfaces;
 
 import com.connectto.DTO.AirplaneDto;
+import com.connectto.DTO.SearchDto;
 import com.connectto.Exception.NotFoundException;
 import com.connectto.model.Airplane;
 
@@ -12,10 +13,7 @@ public interface AirplaneService {
 
     void save(AirplaneDto airplaneDto);
 
-    List<AirplaneDto> getAllAndSearch(String cityDepartune, String cityArrival,
-                                             String remarks, String timeArrivel,
-                                             String timeDepature);
-
+    List<AirplaneDto> getAllAndSearch(SearchDto airplaneSearchDto);
 
     Airplane flightNo (String flightNo )throws NotFoundException;
 

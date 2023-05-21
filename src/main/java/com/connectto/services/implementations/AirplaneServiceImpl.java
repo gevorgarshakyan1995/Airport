@@ -1,6 +1,7 @@
 package com.connectto.services.implementations;
 
 import com.connectto.DTO.AirplaneDto;
+import com.connectto.DTO.SearchDto;
 import com.connectto.Exception.NotFoundException;
 import com.connectto.Mapper.AirplaneMapper;
 import com.connectto.model.Airplane;
@@ -40,10 +41,10 @@ public class AirplaneServiceImpl implements AirplaneService {
     }
 
     @Override
-    public List<AirplaneDto> getAllAndSearch(String cityDepartune, String cityArrival,
-                                             String remarks, String timeArrivel, String timeDepature) {
-        Specification<Airplane> specification = AirplaneSpecifications.getAllAndSearch(cityDepartune,
-                cityArrival, remarks, timeArrivel, timeDepature);
+    public List<AirplaneDto> getAllAndSearch(SearchDto airplaneSearchDto) {
+        Specification<Airplane> specification = AirplaneSpecifications.getAllAndSearch(airplaneSearchDto.getCityDepartune(),
+                airplaneSearchDto.getCityArrival(), airplaneSearchDto.getRemarks(), airplaneSearchDto.getTimeArrivel(),
+                airplaneSearchDto.getTimeDepature());
         return mapper.toAirplaneDto(airplaneRepository.findAll(specification));
     }
 

@@ -1,7 +1,7 @@
 package com.connectto.controllers;
 
 import com.connectto.DTO.AirplaneDto;
-import com.connectto.Exception.NotFoundException;
+import com.connectto.DTO.SearchDto;
 import com.connectto.services.interfaces.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +28,8 @@ public class AirplanesController {
 
     @RolesAllowed(value = "ROLE_ADMIN")
     @GetMapping("/search")
-    ResponseEntity<List<AirplaneDto>> getAllAndSearch(@RequestParam(value = "cityDepartune", required = false) String cityDepartune,
-                                                             @RequestParam(value = "cityArrival", required = false) String cityArrival,
-                                                             @RequestParam(value = "remarks", required = false) String remarks,
-                                                             @RequestParam(value = "timeArrivel", required = false) String timeArrivel,
-                                                             @RequestParam(value = "timeDepature", required = false) String timeDepature) {
-        return ResponseEntity.ok(airplaneService.getAllAndSearch(cityDepartune, cityArrival, remarks, timeArrivel, timeDepature));
+    ResponseEntity<List<AirplaneDto>> getAllAndSearch(@ModelAttribute SearchDto airplane) {
+        return ResponseEntity.ok(airplaneService.getAllAndSearch(airplane));
     }
 
     @RolesAllowed(value = "ROLE_ADMIN")

@@ -1,23 +1,18 @@
 package com.connectto.DTO;
 
 
-import com.connectto.enums.Remarks;
-
-import java.time.LocalTime;
-
-public class AirplaneDto {
-
+public class SearchDto {
     private String flightNo;
 
     private String cityDepartune;
 
     private String cityArrival;
 
-    private LocalTime timeDepature;
+    private String timeDepature;
 
-    private LocalTime timeArrivel;
+    private String timeArrivel;
 
-    private Remarks remarks;
+    private String remarks;
 
     public String getFlightNo() {
         return flightNo;
@@ -43,27 +38,27 @@ public class AirplaneDto {
         this.cityArrival = cityArrival;
     }
 
-    public LocalTime getTimeDepature() {
+    public String getTimeDepature() {
         return timeDepature;
     }
 
-    public void setTimeDepature(LocalTime timeDepature) {
+    public void setTimeDepature(String timeDepature) {
         this.timeDepature = timeDepature;
     }
 
-    public LocalTime getTimeArrivel() {
+    public String getTimeArrivel() {
         return timeArrivel;
     }
 
-    public void setTimeArrivel(LocalTime timeArrivel) {
+    public void setTimeArrivel(String timeArrivel) {
         this.timeArrivel = timeArrivel;
     }
 
-    public Remarks getRemarks() {
+    public String getRemarks() {
         return remarks;
     }
 
-    public void setRemarks(Remarks remarks) {
+    public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 }
