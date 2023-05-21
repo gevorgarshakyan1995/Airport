@@ -1,8 +1,7 @@
 package com.connectto.DTO;
 
 
-public class SearchDto {
-    private String flightNo;
+public class SearchAirplaneDto {
 
     private String cityDepartune;
 
@@ -13,14 +12,6 @@ public class SearchDto {
     private String timeArrivel;
 
     private String remarks;
-
-    public String getFlightNo() {
-        return flightNo;
-    }
-
-    public void setFlightNo(String flightNo) {
-        this.flightNo = flightNo;
-    }
 
     public String getCityDepartune() {
         return cityDepartune;

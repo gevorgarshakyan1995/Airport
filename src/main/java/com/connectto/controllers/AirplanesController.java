@@ -1,7 +1,7 @@
 package com.connectto.controllers;
 
 import com.connectto.DTO.AirplaneDto;
-import com.connectto.DTO.SearchDto;
+import com.connectto.DTO.SearchAirplaneDto;
 import com.connectto.services.interfaces.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class AirplanesController {
 
     @RolesAllowed(value = "ROLE_ADMIN")
     @GetMapping("/search")
-    ResponseEntity<List<AirplaneDto>> getAllAndSearch(@ModelAttribute SearchDto airplane) {
+    ResponseEntity<List<AirplaneDto>> getAllAndSearch(@ModelAttribute SearchAirplaneDto airplane) {
         return ResponseEntity.ok(airplaneService.getAllAndSearch(airplane));
     }
 
