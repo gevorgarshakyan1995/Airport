@@ -15,6 +15,4 @@ public interface FlightRepository extends JpaRepository<Flight, Long>, JpaSpecif
     Flight getByStatusTicketAndAirplane_FlightNo(StatusTicket StatusTicket, String Airplane_FlightNo);
 
 
-    List<Flight> findByAirplaneIsNotNull();
-
 }
